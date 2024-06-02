@@ -62,7 +62,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	bool IsAlive() { return DeathCause == ED3DDeathCause::None; }
 
+	
+
 	void Die(ED3DDeathCause Cause);
 
+private:
+
+	class AD3DPlayerController* GetPlayerController();
 
 };

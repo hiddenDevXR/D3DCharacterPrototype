@@ -25,6 +25,17 @@ void UD3DCharacterAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 	DeathCause = Character->GetDeathCause();
 	isAlive = Character->IsAlive();
 	
-
+	if (!IdleAnimStart) {
+		if (Speed == 0.0f && Direction == 0.0f)
+		{
+			IdleElapsedTime += DeltaSeconds;
+			if (IdleElapsedTime > IdleWaitTime)
+			{
+				IdleElapsedTime = 0.0f;
+				IdleWaitAnimation = FMath::RandRange(0, 1);
+				IdleAnimStart = true;
+			}
+		}
+	}
 
 }

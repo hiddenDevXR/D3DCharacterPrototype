@@ -40,4 +40,16 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Death")
 	bool isAlive = 0.0f;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Transient, Category = "Idle Wait")
+	float IdleElapsedTime = 0.0f;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Transient, Category = "Idle Wait")
+	bool IdleAnimStart = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Idle Wait")
+	float IdleWaitTime = 3.0f;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Idle Wait")
+	int IdleWaitAnimation = 0;
 };

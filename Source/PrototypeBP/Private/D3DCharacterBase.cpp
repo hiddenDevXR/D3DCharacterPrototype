@@ -2,6 +2,8 @@
 
 #include "D3DHealthComponent.h"
 #include "D3DCharacterBase.h"
+#include "D3DPlayerController.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AD3DCharacterBase::AD3DCharacterBase()
@@ -43,5 +45,20 @@ void AD3DCharacterBase::Die(ED3DDeathCause cause)
 	if (DeathCause != ED3DDeathCause::None) return;
 
 	DeathCause = cause;
+
+	AD3DPlayerController* PC = GetPlayerController();
+
+	if (PC)
+	{
+		PC->DisableInput(PC);
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+
 	OnDie.Broadcast(cause);
 }
+
+AD3DPlayerController* AD3DCharacterBase::GetPlayerController()
+{
+	return Cast<AD3DPlayerController>(GetController());
+}
+
