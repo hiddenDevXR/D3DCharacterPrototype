@@ -4,6 +4,7 @@
 #include "Characters/Animation/D3DCharacterAnimInstanceBase.h"
 #include "KismetAnimationLibrary.h"
 #include "D3DCharacterBase.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 void UD3DCharacterAnimInstanceBase::NativeInitializeAnimation()
 {
@@ -24,6 +25,8 @@ void UD3DCharacterAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 	Direction = UKismetAnimationLibrary::CalculateDirection(Character->GetVelocity(), Character->GetActorRotation());
 	DeathCause = Character->GetDeathCause();
 	isAlive = Character->IsAlive();
+	bIsAccelerating = IsAccelerating();
+
 	
 	if (!IdleAnimStart) {
 		if (Speed == 0.0f && Direction == 0.0f)
@@ -36,6 +39,21 @@ void UD3DCharacterAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 				IdleAnimStart = true;
 			}
 		}
+
+		else {
+			IdleElapsedTime = 0.0f;
+			IdleAnimStart = false;
+		}
 	}
 
+}
+
+bool UD3DCharacterAnimInstanceBase::IsAccelerating() {
+
+	if (Character)
+	{
+		return Character->GetCharacterMovement()->GetCurrentAcceleration().Size() > 0;;
+	}
+
+	return false;
 }

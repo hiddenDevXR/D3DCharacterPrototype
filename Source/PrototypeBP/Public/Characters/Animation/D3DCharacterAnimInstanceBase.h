@@ -52,4 +52,11 @@ protected:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Idle Wait")
 	int IdleWaitAnimation = 0;
+
+	UFUNCTION(BlueprintCallable)
+	bool IsAccelerating();
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Transient, Category = "Movement")
+	bool bIsAccelerating = false;
+		
 };
