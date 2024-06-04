@@ -32,6 +32,7 @@ public:
 	AD3DCharacterBase();
 
 	virtual void Fire();
+	virtual void Jump() override;
 
 protected:
 
@@ -66,8 +67,12 @@ public:
 
 	void Die(ED3DDeathCause Cause);
 
-private:
+	
 
-	class AD3DPlayerController* GetPlayerController();
+protected:
 
+	UFUNCTION(BlueprintCallable)
+	class AD3DPlayerController* GetPlayerController() const;
+
+	
 };

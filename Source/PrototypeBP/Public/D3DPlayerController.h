@@ -36,8 +36,8 @@ struct FInputActions
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UInputAction> InputLook;
 
-	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	//TObjectPtr<UInputAction> InputJump;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<UInputAction> InputJump;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UInputAction> InputFire;
@@ -67,6 +67,7 @@ protected:
 	void MoveInputAction(const struct FInputActionValue& InputActionValue);
 	void LookInputAction(const struct FInputActionValue& InputActionValue);
 	void FireInputAction();
+	void JumpInputAction();
 
 	class AD3DCharacterBase* GetCharacter();
 };

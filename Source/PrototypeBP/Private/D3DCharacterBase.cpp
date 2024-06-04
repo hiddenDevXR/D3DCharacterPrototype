@@ -40,6 +40,10 @@ void AD3DCharacterBase::Fire()
 
 }
 
+void AD3DCharacterBase::Jump() {
+	Super::Jump();
+}
+
 void AD3DCharacterBase::Die(ED3DDeathCause cause)
 {
 	if (DeathCause != ED3DDeathCause::None) return;
@@ -57,7 +61,7 @@ void AD3DCharacterBase::Die(ED3DDeathCause cause)
 	OnDie.Broadcast(cause);
 }
 
-AD3DPlayerController* AD3DCharacterBase::GetPlayerController()
+AD3DPlayerController* AD3DCharacterBase::GetPlayerController() const
 {
 	return Cast<AD3DPlayerController>(GetController());
 }

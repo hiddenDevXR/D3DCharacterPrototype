@@ -25,6 +25,7 @@ void AD3DPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(InputActions.InputMove, ETriggerEvent::Triggered, this, &AD3DPlayerController::MoveInputAction);
 		EnhancedInputComponent->BindAction(InputActions.InputLook, ETriggerEvent::Triggered, this, &AD3DPlayerController::LookInputAction);
 		EnhancedInputComponent->BindAction(InputActions.InputFire, ETriggerEvent::Triggered, this, &AD3DPlayerController::FireInputAction);
+		EnhancedInputComponent->BindAction(InputActions.InputJump, ETriggerEvent::Triggered, this, &AD3DPlayerController::JumpInputAction);
 	}
 }
 
@@ -58,6 +59,15 @@ void AD3DPlayerController::FireInputAction()
 	if (PlayerCharacter)
 	{
 		PlayerCharacter->Fire();
+	}
+}
+
+void AD3DPlayerController::JumpInputAction()
+{
+	AD3DCharacterBase* PlayerCharacter = GetCharacter();
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->Jump();
 	}
 }
                                         

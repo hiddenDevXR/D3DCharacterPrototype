@@ -48,7 +48,7 @@ protected:
 	bool IdleAnimStart = false;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Idle Wait")
-	float IdleWaitTime = 3.0f;
+	float IdleWaitTime = 15.0f;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Idle Wait")
 	int IdleWaitAnimation = 0;
@@ -58,5 +58,8 @@ protected:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Transient, Category = "Movement")
 	bool bIsAccelerating = false;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Transient, Category = "Movement")
+	bool bIsOnAir = false;
 		
 };
