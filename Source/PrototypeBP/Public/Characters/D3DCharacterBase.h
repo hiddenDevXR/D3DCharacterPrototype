@@ -34,6 +34,10 @@ public:
 	virtual void Fire();
 	virtual void Jump() override;
 
+	
+	virtual void PrimaryInteraction();
+	
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay")
@@ -41,6 +45,16 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UD3DHealthComponent> HealthComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
+	class UD3DCharacterAttributeComponent* CharacterAttributesComponent;
+
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PrimaryInteraction")
+	UAnimMontage* PrimaryInteractionMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PrimaryInteraction")
+	float MaxPrimaryInteractionDistance = 500;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

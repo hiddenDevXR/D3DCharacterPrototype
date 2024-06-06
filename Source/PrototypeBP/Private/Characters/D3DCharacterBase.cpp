@@ -1,9 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "D3DHealthComponent.h"
-#include "D3DCharacterBase.h"
-#include "D3DPlayerController.h"
+#include "Characters/Components/D3DHealthComponent.h"
+#include "Characters/D3DCharacterBase.h"
+#include "Controllers/D3DPlayerController.h"
 #include "Components/CapsuleComponent.h"
+#include "Gameplay/Interactable.h"
+#include "Characters/Components/D3DCharacterAttributeComponent.h"
 
 // Sets default values
 AD3DCharacterBase::AD3DCharacterBase()
@@ -12,6 +14,7 @@ AD3DCharacterBase::AD3DCharacterBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	HealthComponent = CreateDefaultSubobject<UD3DHealthComponent>(TEXT("Health"));
+	CharacterAttributesComponent = CreateDefaultSubobject<UD3DCharacterAttributeComponent>(TEXT("Attributes"));
 }
 
 // Called when the game starts or when spawned
@@ -42,6 +45,36 @@ void AD3DCharacterBase::Fire()
 
 void AD3DCharacterBase::Jump() {
 	Super::Jump();
+}
+
+void AD3DCharacterBase::PrimaryInteraction() {
+
+	PlayAnimMontage(PrimaryInteractionMontage);
+
+	FRotator CameraRotation;
+	FVector CameraLocation;
+
+	GetActorEyesViewPoint(CameraLocation, CameraRotation);
+
+	FVector EndLocation = CameraLocation + CameraRotation.Vector() * MaxPrimaryInteractionDistance;
+
+
+	FHitResult HitResult;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, CameraLocation, EndLocation, ECC_Visibility, QueryParams);
+
+	if (bHit)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red, FString::Printf(TEXT("Hit: %s"), *HitResult.GetActor()->GetName()));
+		
+		AInteractable* interactable = Cast<AInteractable>(HitResult.GetActor());
+
+		if (interactable)
+		{
+			interactable->OnInteraction();
+		}
+	}
 }
 
 void AD3DCharacterBase::Die(ED3DDeathCause cause)

@@ -4,16 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TestInteractable.generated.h"
+#include "Interactable.generated.h"
 
 UCLASS()
-class PROTOTYPEBP_API ATestInteractable : public AActor
+class PROTOTYPEBP_API AInteractable : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ATestInteractable();
+	AInteractable();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	class USceneComponent* DefaultSceneRoot;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	class UWidgetComponent* Widget;
@@ -21,17 +24,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	class USphereComponent* Sphere;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	class USceneComponent* DefaultSceneComponent;
-
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnInteraction();
 
 };

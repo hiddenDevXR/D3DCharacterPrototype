@@ -3,7 +3,7 @@
 
 #include "Characters/Animation/D3DCharacterAnimInstanceBase.h"
 #include "KismetAnimationLibrary.h"
-#include "D3DCharacterBase.h"
+#include "Characters/D3DCharacterBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 void UD3DCharacterAnimInstanceBase::NativeInitializeAnimation()

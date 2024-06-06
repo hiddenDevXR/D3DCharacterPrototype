@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "D3DHealthComponent.h"
-#include "D3DCharacterBase.h"
+#include "Characters/Components/D3DHealthComponent.h"
+#include "Characters/D3DCharacterBase.h"
 
 // Sets default values for this component's properties
 UD3DHealthComponent::UD3DHealthComponent()

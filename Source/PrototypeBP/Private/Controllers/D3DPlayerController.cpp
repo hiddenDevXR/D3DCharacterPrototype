@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "D3DPlayerController.h"
+#include "Controllers/D3DPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
-#include "D3DCharacterBase.h"
+#include "Characters/D3DCharacterBase.h"
 
 void AD3DPlayerController::SetupInputComponent()
 {
@@ -26,6 +26,7 @@ void AD3DPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(InputActions.InputLook, ETriggerEvent::Triggered, this, &AD3DPlayerController::LookInputAction);
 		EnhancedInputComponent->BindAction(InputActions.InputFire, ETriggerEvent::Triggered, this, &AD3DPlayerController::FireInputAction);
 		EnhancedInputComponent->BindAction(InputActions.InputJump, ETriggerEvent::Triggered, this, &AD3DPlayerController::JumpInputAction);
+		EnhancedInputComponent->BindAction(InputActions.InputPrimaryInteraction, ETriggerEvent::Triggered, this, &AD3DPlayerController::PrimaryInteractionInputAction);
 	}
 }
 
@@ -51,6 +52,15 @@ void AD3DPlayerController::LookInputAction(const FInputActionValue& InputActionV
 	const FVector2D value = InputActionValue.Get<FVector2D>();
 	AddYawInput(value.X);
 	AddPitchInput(value.Y);
+}
+
+void AD3DPlayerController::PrimaryInteractionInputAction()
+{
+	AD3DCharacterBase* PlayerCharacter = GetCharacter();
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->PrimaryInteraction();
+	}
 }
 
 void AD3DPlayerController::FireInputAction() 
