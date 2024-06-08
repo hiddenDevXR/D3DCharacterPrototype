@@ -50,13 +50,15 @@ void UPrimaryAbility::OnStartInteraction_Implementation()
 			interactable->OnInteraction(Character);
 		}
 	}
+
+	GetWorld()->GetTimerManager().SetTimer(InteractTimerHandle, this, &UPrimaryAbility::EndAbilityCoolDown, CoolDownTime, false);
 }
 
 void UPrimaryAbility::EndAbilityCoolDown()
 {
 	AD3DCharacterBase* Character = Cast<AD3DCharacterBase>(GetOwningActor());
-	Character->CharacterTags.RemoveTag(Character->AttackTag);
-	if (!Character->HasCharacterTag(Character->AttackTag))
+	Character->CharacterTags.RemoveTag(Character->InteractionTag);
+	if (!Character->HasCharacterTag(Character->InteractionTag))
 		UE_LOG(LogTemp, Warning, TEXT("I have NO tag"));
 
 	EndAbility();
