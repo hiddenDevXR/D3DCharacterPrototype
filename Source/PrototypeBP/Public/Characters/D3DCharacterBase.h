@@ -2,9 +2,12 @@
 
 #pragma once
 
+#include "GameplayTagContainer.h"
+#include "GameplayTagsManager.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "D3DCharacterBase.generated.h"
+
 
 class UD3DCharacterAttributeComponent;
 
@@ -92,6 +95,15 @@ public:
 	UD3DCharacterAttributeComponent* GetAttributes() const {
 		return CharacterAttributesComponent;
 	}
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
+	struct FGameplayTagContainer CharacterTags;
+
+	UFUNCTION(BlueprintCallable, Category = "Tags")
+	bool HasCharacterTag(FGameplayTag Tag) const;
+
+
+	FGameplayTag AttackTag;
 
 protected:
 

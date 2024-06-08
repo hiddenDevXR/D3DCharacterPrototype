@@ -1,18 +1,24 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Characters/Components/D3DHealthComponent.h"
-#include "Characters/D3DCharacterBase.h"
 #include "Controllers/D3DPlayerController.h"
 #include "Components/CapsuleComponent.h"
 #include "Gameplay/Interactable.h"
 #include "Characters/Components/D3DCharacterAttributeComponent.h"
 #include "Abilities/D3DAbilityComponent.h"
 
+
+#include "Characters/D3DCharacterBase.h"
+
 // Sets default values
 AD3DCharacterBase::AD3DCharacterBase()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	AttackTag = FGameplayTag::RequestGameplayTag(FName("Status.PrimaryAttack"));
+	
+
 
 	HealthComponent = CreateDefaultSubobject<UD3DHealthComponent>(TEXT("Health"));
 	CharacterAttributesComponent = CreateDefaultSubobject<UD3DCharacterAttributeComponent>(TEXT("Attributes"));
@@ -81,6 +87,11 @@ void AD3DCharacterBase::PrimaryInteraction() {
 
 void AD3DCharacterBase::PrimaryAttack()
 {
+
+	CharacterTags.AddTag(AttackTag);
+	if(HasCharacterTag(AttackTag))
+		UE_LOG(LogTemp, Warning, TEXT("I have tag"));
+
 	AbilityComponent->TryActiveAbilityByName("PrimaryAttack");
 }
 
@@ -99,6 +110,11 @@ void AD3DCharacterBase::Die(ED3DDeathCause cause)
 	}
 
 	OnDie.Broadcast(cause);
+}
+
+bool AD3DCharacterBase::HasCharacterTag(FGameplayTag Tag) const
+{
+	return CharacterTags.HasTag(Tag);
 }
 
 AD3DPlayerController* AD3DCharacterBase::GetPlayerController() const
