@@ -6,6 +6,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Gameplay/Interactable.h"
 #include "Characters/Components/D3DCharacterAttributeComponent.h"
+#include "Abilities/D3DAbilityComponent.h"
 
 // Sets default values
 AD3DCharacterBase::AD3DCharacterBase()
@@ -15,6 +16,7 @@ AD3DCharacterBase::AD3DCharacterBase()
 
 	HealthComponent = CreateDefaultSubobject<UD3DHealthComponent>(TEXT("Health"));
 	CharacterAttributesComponent = CreateDefaultSubobject<UD3DCharacterAttributeComponent>(TEXT("Attributes"));
+	AbilityComponent = CreateDefaultSubobject<UD3DAbilityComponent>(TEXT("Abilities"));
 }
 
 // Called when the game starts or when spawned
@@ -75,6 +77,11 @@ void AD3DCharacterBase::PrimaryInteraction() {
 			interactable->OnInteraction();
 		}
 	}
+}
+
+void AD3DCharacterBase::PrimaryAttack()
+{
+	AbilityComponent->TryActiveAbilityByName("PrimaryAttack");
 }
 
 void AD3DCharacterBase::Die(ED3DDeathCause cause)

@@ -27,6 +27,7 @@ void AD3DPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(InputActions.InputFire, ETriggerEvent::Triggered, this, &AD3DPlayerController::FireInputAction);
 		EnhancedInputComponent->BindAction(InputActions.InputJump, ETriggerEvent::Triggered, this, &AD3DPlayerController::JumpInputAction);
 		EnhancedInputComponent->BindAction(InputActions.InputPrimaryInteraction, ETriggerEvent::Triggered, this, &AD3DPlayerController::PrimaryInteractionInputAction);
+		EnhancedInputComponent->BindAction(InputActions.InputPrimaryAttack, ETriggerEvent::Triggered, this, &AD3DPlayerController::PrimaryAttackInputAction);
 	}
 }
 
@@ -60,6 +61,15 @@ void AD3DPlayerController::PrimaryInteractionInputAction()
 	if (PlayerCharacter)
 	{
 		PlayerCharacter->PrimaryInteraction();
+	}
+}
+
+void AD3DPlayerController::PrimaryAttackInputAction()
+{
+	AD3DCharacterBase* PlayerCharacter = GetCharacter();
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->PrimaryAttack();
 	}
 }
 

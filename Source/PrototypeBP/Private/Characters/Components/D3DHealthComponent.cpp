@@ -3,6 +3,7 @@
 
 #include "Characters/Components/D3DHealthComponent.h"
 #include "Characters/D3DCharacterBase.h"
+#include "Characters/Components/D3DCharacterAttributeComponent.h"
 
 // Sets default values for this component's properties
 UD3DHealthComponent::UD3DHealthComponent()
@@ -25,6 +26,14 @@ void UD3DHealthComponent::BeginPlay()
 	if (!GetOwner()) return;
 
 	CharacterBase = Cast<AD3DCharacterBase>(GetOwner());
+
+	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UD3DHealthComponent::HandleAnyDamage);
+}
+
+void UD3DHealthComponent::HandleAnyDamage(AActor* DamagedActor, float damage, const UDamageType* DamageType, AController* InstidatedBy, AActor* DamageCauser) {
+	UE_LOG(LogTemp, Warning, TEXT("Damage"));
+	CharacterBase->GetAttributes()->Health.AddToBaseValue(-damage);
+	
 }
 
 

@@ -6,8 +6,7 @@
 #include "GameFramework/Character.h"
 #include "D3DCharacterBase.generated.h"
 
-
-
+class UD3DCharacterAttributeComponent;
 
 UENUM(BlueprintType)
 enum class ED3DDeathCause : uint8
@@ -36,7 +35,7 @@ public:
 
 	
 	virtual void PrimaryInteraction();
-	
+	virtual void PrimaryAttack();
 
 protected:
 
@@ -47,11 +46,16 @@ protected:
 	TObjectPtr<class UD3DHealthComponent> HealthComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
-	class UD3DCharacterAttributeComponent* CharacterAttributesComponent;
+	UD3DCharacterAttributeComponent* CharacterAttributesComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<class UD3DAbilityComponent> AbilityComponent;
 
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PrimaryInteraction")
 	UAnimMontage* PrimaryInteractionMontage;
+
+
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PrimaryInteraction")
 	float MaxPrimaryInteractionDistance = 500;
@@ -65,6 +69,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Gameplay")
 	FOnDie OnDie;
+
+	
+
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -81,7 +88,10 @@ public:
 
 	void Die(ED3DDeathCause Cause);
 
-	
+	UFUNCTION(BlueprintCallable)
+	UD3DCharacterAttributeComponent* GetAttributes() const {
+		return CharacterAttributesComponent;
+	}
 
 protected:
 

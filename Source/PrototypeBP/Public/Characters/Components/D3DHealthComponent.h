@@ -17,8 +17,13 @@ public:
 	UD3DHealthComponent();
 
 protected:
+
+	UFUNCTION(BlueprintCallable, Category = "Damage")
+	void HandleAnyDamage(AActor* DamagedActor, float damage, const UDamageType* DamageType, AController* InstidatedBy, AActor* DamageCauser);
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	
 
 public:	
 	// Called every frame
