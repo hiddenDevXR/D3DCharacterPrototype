@@ -83,6 +83,8 @@ struct FD3DGameplayAttribute {
 			OnBaseValueChanged.Broadcast(BaseValue, PreviousValue, CurrentValue);
 		}
 	}
+
+	
 	void AddToBaseValue(float AdditiveValue);
 	void ModifyToBaseValue(FD3DGameplayAttributeModifier NewModifier);
 
@@ -137,7 +139,7 @@ class PROTOTYPEBP_API UD3DCharacterAttributeComponent : public UActorComponent
 	
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	FD3DGameplayAttribute Health{ 100 };
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FD3DGameplayAttribute MaxHealth{ 100 };

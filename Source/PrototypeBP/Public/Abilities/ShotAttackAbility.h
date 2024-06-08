@@ -29,4 +29,6 @@ protected:
 	float MaxPrimaryAttackDistance = 100;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PrimaryInteraction")
 	TSubclassOf<UDamageType> PrimaryAttackDamageTypeClass;
+
+	void EndAbilityCoolDown();
 };

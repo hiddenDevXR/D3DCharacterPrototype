@@ -4,6 +4,7 @@
 #include "Abilities/ShotAttackAbility.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
+#include "Characters/D3DCharacterBase.h"
 
 void UShotAttackAbility::OnActivateAbility_Implementation() {
 	Super::OnActivateAbility_Implementation();
@@ -47,6 +48,16 @@ void UShotAttackAbility::OnStartAttack_Implementation()
 
 		UGameplayStatics::ApplyDamage(Actor, 100, Pawn->GetController(), Pawn, PrimaryAttackDamageTypeClass);
 	}
+
+	GetWorld()->GetTimerManager().SetTimer(AttackTimerHandle, this, &UShotAttackAbility::EndAbilityCoolDown, CoolDownTime, false);
+}
+
+void UShotAttackAbility::EndAbilityCoolDown()
+{
+	AD3DCharacterBase* Character = Cast<AD3DCharacterBase>(GetOwningActor());
+	Character->CharacterTags.RemoveTag(Character->AttackTag);
+	if (!Character->HasCharacterTag(Character->AttackTag))
+		UE_LOG(LogTemp, Warning, TEXT("I have NO tag"));
 
 	EndAbility();
 }

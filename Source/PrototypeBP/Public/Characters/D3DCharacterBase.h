@@ -104,6 +104,7 @@ public:
 
 
 	FGameplayTag AttackTag;
+	FGameplayTag InteractionTag;
 
 protected:
 

@@ -17,7 +17,7 @@ AD3DCharacterBase::AD3DCharacterBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	AttackTag = FGameplayTag::RequestGameplayTag(FName("Status.PrimaryAttack"));
-	
+	InteractionTag = FGameplayTag::RequestGameplayTag(FName("Status.PrimaryInteraction"));
 
 
 	HealthComponent = CreateDefaultSubobject<UD3DHealthComponent>(TEXT("Health"));
@@ -57,41 +57,42 @@ void AD3DCharacterBase::Jump() {
 
 void AD3DCharacterBase::PrimaryInteraction() {
 
-	PlayAnimMontage(PrimaryInteractionMontage);
+	//PlayAnimMontage(PrimaryInteractionMontage);
 
-	FRotator CameraRotation;
-	FVector CameraLocation;
+	//FRotator CameraRotation;
+	//FVector CameraLocation;
 
-	GetActorEyesViewPoint(CameraLocation, CameraRotation);
+	//GetActorEyesViewPoint(CameraLocation, CameraRotation);
 
-	FVector EndLocation = CameraLocation + CameraRotation.Vector() * MaxPrimaryInteractionDistance;
+	//FVector EndLocation = CameraLocation + CameraRotation.Vector() * MaxPrimaryInteractionDistance;
 
 
-	FHitResult HitResult;
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, CameraLocation, EndLocation, ECC_Visibility, QueryParams);
+	//FHitResult HitResult;
+	//FCollisionQueryParams QueryParams;
+	//QueryParams.AddIgnoredActor(this);
+	//bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, CameraLocation, EndLocation, ECC_Visibility, QueryParams);
 
-	if (bHit)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red, FString::Printf(TEXT("Hit: %s"), *HitResult.GetActor()->GetName()));
-		
-		AInteractable* interactable = Cast<AInteractable>(HitResult.GetActor());
+	//if (bHit)
+	//{
+	//	GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red, FString::Printf(TEXT("Hit: %s"), *HitResult.GetActor()->GetName()));
+	//	
+	//	AInteractable* interactable = Cast<AInteractable>(HitResult.GetActor());
 
-		if (interactable)
-		{
-			interactable->OnInteraction();
-		}
-	}
+	//	if (interactable)
+	//	{
+	//		interactable->OnInteraction(this);
+	//	}
+	//}
+
+	CharacterTags.AddTag(InteractionTag);
+	UE_LOG(LogTemp, Warning, TEXT("I have Primary Interaction tag"));
+	AbilityComponent->TryActiveAbilityByName("PrimaryInteraction");
 }
 
 void AD3DCharacterBase::PrimaryAttack()
 {
-
 	CharacterTags.AddTag(AttackTag);
-	if(HasCharacterTag(AttackTag))
-		UE_LOG(LogTemp, Warning, TEXT("I have tag"));
-
+	UE_LOG(LogTemp, Warning, TEXT("I have Primary Attack tag"));
 	AbilityComponent->TryActiveAbilityByName("PrimaryAttack");
 }
 

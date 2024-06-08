@@ -27,6 +27,7 @@ public:
 	virtual void ActivateAbility() override;
 	UFUNCTION(BlueprintNativeEvent = "Abilities")
 	void OnStartAttack();
+	void OnEndAttack();
 
 protected:
 	FTimerHandle AttackTimerHandle;

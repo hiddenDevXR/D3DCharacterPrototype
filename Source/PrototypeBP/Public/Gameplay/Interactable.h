@@ -34,6 +34,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnInteraction();
+	void OnInteraction(class AD3DCharacterBase* character);
 
 };
