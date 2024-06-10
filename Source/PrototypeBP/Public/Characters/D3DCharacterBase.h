@@ -87,7 +87,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
 	bool IsAlive() { return DeathCause == ED3DDeathCause::None; }
 
-	
+	//virtual void CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult) override;
+
 
 	void Die(ED3DDeathCause Cause);
 
